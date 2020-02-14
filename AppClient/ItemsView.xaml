@@ -1,0 +1,35 @@
+﻿<rxui:ReactiveUserControl
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:rxui="http://reactiveui.net" 
+    x:Class="AppClient.ItemsView"
+    xmlns:ac="clr-namespace:AppClient"
+    x:TypeArguments="ac:ItemsViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    Height="400" Width="320" Background="LightGray">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Content="Update Products" x:Name="UpdateItems" Command="{Binding}"/>
+        
+        <Button Grid.Row="1" Content="Shopping Cart" x:Name="ViewShoppingCart" />
+
+        <ListBox Grid.Row="2" x:Name="ProductsListBox">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Description}" />
+                        <TextBlock Text="{Binding Available}" />
+                        <Button Content="To Cart" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+    </Grid>
+</rxui:ReactiveUserControl>

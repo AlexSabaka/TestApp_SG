@@ -1,0 +1,30 @@
+﻿<rxui:ReactiveUserControl
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:rxui="http://reactiveui.net" 
+    x:Class="AppClient.AuthView"
+    xmlns:ac="clr-namespace:AppClient"
+    x:TypeArguments="ac:AuthViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    Height="400" Width="320" Background="LightGray">
+
+    <Grid>
+
+        <StackPanel VerticalAlignment="Center" Margin="10">
+
+            <TextBlock x:Name="ErrorTextBlock" Foreground="Red" />
+            
+            <TextBlock TextAlignment="Center" Margin="3">User Name</TextBlock>
+            <TextBox x:Name="UserNameBox" TextAlignment="Center" Margin="3"/>
+
+            <TextBlock TextAlignment="Center" Margin="3">Password</TextBlock>
+            <TextBox x:Name="PasswordBox" TextAlignment="Center" Margin="3"/>
+
+            <Button x:Name="LogInButton" Margin="3" Content="Log In" />
+
+            <Button x:Name="RegisterButton" Margin="3" Content="Register" />
+
+
+        </StackPanel>
+        
+    </Grid>
+</rxui:ReactiveUserControl>
