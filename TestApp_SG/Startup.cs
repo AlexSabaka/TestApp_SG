@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using AppApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppApi
 {
@@ -25,6 +26,7 @@ namespace AppApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -32,6 +34,15 @@ namespace AppApi
             services.Configure<AppSettings>(appSettingSection);
 
             var appSettings = appSettingSection.Get<AppSettings>();
+
+            services.AddDbContext<ShoppingCartAppDbContext>(opts => opts.UseSqlServer(appSettings.AppDbConnection));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>(s => new UnitOfWork(s.GetRequiredService<ShoppingCartAppDbContext>()));
+
+            services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IUserService, UserService>();
+
 
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
@@ -52,12 +63,6 @@ namespace AppApi
                     ValidateAudience = false
                 };
             });
-
-            services.AddSingleton<IUnitOfWork, MockupUnitOfWork>();
-            services.AddSingleton<IItemService, ItemService>();
-
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

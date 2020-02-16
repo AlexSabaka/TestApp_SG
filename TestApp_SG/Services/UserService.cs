@@ -28,8 +28,6 @@ namespace AppApi.Services
     {
         private readonly AppSettings _appSettings;
 
-        private IIdGenerator _idGenerator;
-
         private IRepository<User> _usersRepository;
 
         public UserService(IOptions<AppSettings> appSettings, IUnitOfWork unit)
@@ -37,8 +35,6 @@ namespace AppApi.Services
             _appSettings = appSettings.Value;
 
             _usersRepository = unit.UserRepository;
-
-            _idGenerator = unit;
         }
 
         public User Auth(string name, string password)
@@ -72,7 +68,6 @@ namespace AppApi.Services
 
             var user = new User
             {
-                Id = _idGenerator.GetNewId(),
                 Name = name,
                 Password = password,
                 Orders = new List<Order>()

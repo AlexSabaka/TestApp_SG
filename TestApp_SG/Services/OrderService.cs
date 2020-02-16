@@ -26,8 +26,6 @@ namespace AppApi.Services
 
     public class OrderService : IOrderService
     {
-        private IIdGenerator _idGenerator;
-
         private IRepository<Order> _ordersRepository;
         private IRepository<Paycheck> _paycheckRepository;
 
@@ -35,8 +33,6 @@ namespace AppApi.Services
         {
             _ordersRepository = unit.OrderRepository;
             _paycheckRepository = unit.PaycheckRepository;
-
-            _idGenerator = unit;
         }
 
         public Order Get(int id)
@@ -53,7 +49,6 @@ namespace AppApi.Services
         {
             Order order = new Order
             {
-                Id = _idGenerator.GetNewId(),
                 Date = DateTime.UtcNow,
                 Status = OrderStatus.New,
                 User = user,
@@ -82,7 +77,6 @@ namespace AppApi.Services
             // pretend to check payment
             var check = new Paycheck
             {
-                Id = _idGenerator.GetNewId(),
                 Date = DateTime.UtcNow, 
                 CardNumber = carNumber, 
                 FullName = fullName, 

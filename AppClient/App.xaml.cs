@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,7 +31,7 @@ namespace AppClient
         }
 
         private void SetDI()
-        {
+        {       
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
 
             Locator.CurrentMutable.RegisterLazySingleton(() => RestService.For<IUserService>(ApiHost), typeof(IUserService));
@@ -38,9 +39,6 @@ namespace AppClient
             Locator.CurrentMutable.RegisterLazySingleton(() => RestService.For<IItemsService>(ApiHost), typeof(IItemsService));
 
             Locator.CurrentMutable.RegisterConstant(new MainViewModel(), typeof(IScreen));
-
-            //Locator.CurrentMutable.RegisterLazySingleton(() => new ItemsViewModel(), typeof(IRoutableViewModel));
-            //Locator.CurrentMutable.RegisterLazySingleton(() => new AuthViewModel(), typeof(IRoutableViewModel));
         }
     }
 }

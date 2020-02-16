@@ -26,8 +26,8 @@ namespace AppClient
             set => this.RaiseAndSetIfChanged(ref _updateCommand, value);
         }
 
-        private IObservable<ProductItem> _items;
-        public IObservable<ProductItem> Items
+        private IEnumerable<ProductItem> _items;
+        public IEnumerable<ProductItem> Items
         {
             get => _items;
             set => this.RaiseAndSetIfChanged(ref _items, value);
@@ -44,7 +44,7 @@ namespace AppClient
                     var items = _itemService.Get();
                     items.Wait();
 
-                    Items = items.Result.ToObservable();
+                    Items = items.Result;
                 }
                 catch (Exception ex)
                 {

@@ -38,27 +38,4 @@ namespace AppApi.Data
             _context.Remove(item);
         }
     }
-
-
-    public class TestShoppingCartRepository<T> : IRepository<T> where T : class
-    {
-        private List<T> _set;
-
-        public IQueryable<T> Entities => _set.AsQueryable();
-
-        public TestShoppingCartRepository()
-        {
-            _set = new List<T>();
-        }
-
-        public void Add(T item)
-        {
-            _set.Add(item);
-        }
-
-        public void Remove(T item)
-        {
-            _set.Remove(item);
-        }
-    }
 }

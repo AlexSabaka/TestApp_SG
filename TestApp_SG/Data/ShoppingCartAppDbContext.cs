@@ -10,15 +10,17 @@ namespace AppApi.Data
 {
     public class ShoppingCartAppDbContext : DbContext
     {
-        public virtual DbSet<DbContext> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+
         public virtual DbSet<ProductItem> Items { get; set; }
+
         public virtual DbSet<Order> Orders { get; set; }
+
         public virtual DbSet<Paycheck> Paychecks { get; set; }
 
         public ShoppingCartAppDbContext(DbContextOptions options)
             : base(options)
         {
-
         }
     }
 }

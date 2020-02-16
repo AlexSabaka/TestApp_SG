@@ -28,7 +28,7 @@ namespace AppClient
 
             this.WhenActivated(disps =>
             {
-                this.Bind(ViewModel, x => x.Items, x => x.ProductsListBox.ItemsSource).DisposeWith(disps);
+                this.OneWayBind(ViewModel, x => x.Items, x => x.ProductsListBox.ItemsSource).DisposeWith(disps);
 
                 this.BindCommand(ViewModel, x => x.UpdateCommand, x => x.UpdateItems).DisposeWith(disps);
             });

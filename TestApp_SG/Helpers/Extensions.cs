@@ -6,12 +6,30 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AppApi.Data.Entities;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AppApi.Helpers
 {
     public static class Extensions
     {
+        public static IWebHost MigrateDb<T>(this IWebHost host) where T : DbContext
+        {
+            var factory = host.Services.GetService<IServiceScopeFactory>();
+
+            using (var scope = factory.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                var dbContext = services.GetRequiredService<T>();
+                dbContext.Database.Migrate();
+            }
+
+            return host;
+        }
+
         public static User WithoutPassword(this User user)
         {
             User withoutPassword = new User

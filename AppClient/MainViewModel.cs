@@ -20,7 +20,7 @@ namespace AppClient
         {
             Router = new RoutingState();
 
-            Router.Navigate.Execute(new AuthViewModel());
+            Router.Navigate.Execute(new ItemsViewModel());
         }
     }
 }
