@@ -5,13 +5,13 @@
     xmlns:ac="clr-namespace:AppClient"
     x:TypeArguments="ac:AuthViewModel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    Height="400" Width="320" Background="LightGray">
+    Background="Transparent">
 
     <Grid>
 
         <StackPanel VerticalAlignment="Center" Margin="10">
 
-            <TextBlock x:Name="ErrorTextBlock" Foreground="Red" />
+            <TextBlock x:Name="ErrorTextBlock" Foreground="Red" TextWrapping="Wrap" HorizontalAlignment="Center" />
             
             <TextBlock TextAlignment="Center" Margin="3">User Name</TextBlock>
             <TextBox x:Name="UserNameBox" TextAlignment="Center" Margin="3"/>

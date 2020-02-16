@@ -34,11 +34,22 @@ namespace AppClient
         {       
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
 
+            Locator.CurrentMutable.RegisterLazySingleton(() => new CurrentUserInfo());
+
             Locator.CurrentMutable.RegisterLazySingleton(() => RestService.For<IUserService>(ApiHost), typeof(IUserService));
             Locator.CurrentMutable.RegisterLazySingleton(() => RestService.For<IOrderService>(ApiHost), typeof(IOrderService));
             Locator.CurrentMutable.RegisterLazySingleton(() => RestService.For<IItemsService>(ApiHost), typeof(IItemsService));
 
             Locator.CurrentMutable.RegisterConstant(new MainViewModel(), typeof(IScreen));
         }
+    }
+
+    public class CurrentUserInfo
+    {
+        public string Token { get; set; }
+
+        public string UserName { get; set; }
+
+        public bool IsLogin => !string.IsNullOrEmpty(Token);
     }
 }

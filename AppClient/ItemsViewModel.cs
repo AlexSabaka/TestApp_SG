@@ -33,8 +33,10 @@ namespace AppClient
             set => this.RaiseAndSetIfChanged(ref _items, value);
         }
 
-        public ItemsViewModel()
+        public ItemsViewModel(IScreen screen = null)
         {
+            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+
             _itemService = Locator.Current.GetService<IItemsService>();
 
             UpdateCommand = ReactiveCommand.Create(() =>
@@ -51,6 +53,8 @@ namespace AppClient
                     //todo handle exception and display message
                 }
             });
+
+            UpdateCommand.Execute();
         }
     }
 }

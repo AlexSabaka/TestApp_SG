@@ -16,6 +16,8 @@ namespace AppClient
     {
         private readonly IUserService _userService;
 
+        private CurrentUserInfo _currentUser;
+
         public string UrlPathSegment { get; }
         public IScreen HostScreen { get; }
 
@@ -59,6 +61,7 @@ namespace AppClient
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
             _userService = Locator.Current.GetService<IUserService>();
+            _currentUser = Locator.Current.GetService<CurrentUserInfo>();
 
             ErrorDescription = errorText;
 
@@ -82,14 +85,17 @@ namespace AppClient
                     auth.Wait();
 
                     if (auth.Result == null)
-                        return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(errorText: "User does not exists"));
+                        return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(HostScreen, errorText: "User does not exists"));
 
-                    return HostScreen.Router.Navigate.Execute(new ItemsViewModel());
+                    _currentUser.Token = auth.Result.Token;
+                    _currentUser.UserName = auth.Result.Name;
+
+                    return HostScreen.Router.Navigate.Execute(new ItemsViewModel(HostScreen));
                 }
                 catch (Exception ex)
                 {
                         //todo handle exception and display message
-                        return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(errorText: ex.Message));
+                        return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(HostScreen, errorText: ex.Message));
                 }
             },
             Observable.Concat(this.WhenAnyValue(x => x.UserName),
@@ -108,18 +114,21 @@ namespace AppClient
 
                     try
                     {
-                        var auth = _userService.Register(model);
-                        auth.Wait();
+                        var reg = _userService.Register(model);
+                        reg.Wait();
 
-                        if (auth.Result == null)
-                            return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(errorText: "User already exists"));
+                        if (reg.Result == null)
+                            return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(HostScreen, errorText: "User already exists"));
 
-                        return HostScreen.Router.Navigate.Execute(new ItemsViewModel());
+                        _currentUser.Token = reg.Result.Token;
+                        _currentUser.UserName = reg.Result.Name;
+
+                        return HostScreen.Router.Navigate.Execute(new ItemsViewModel(HostScreen));
                     }
                     catch (Exception ex)
                     {
                         //todo handle exception and display message
-                        return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(errorText: ex.Message));
+                        return HostScreen.Router.NavigateAndReset.Execute(new AuthViewModel(HostScreen, errorText: ex.Message));
                     }
                 },
                 Observable.Concat(this.WhenAnyValue(x => x.UserName),
