@@ -33,28 +33,12 @@ namespace AppClient
             set => this.RaiseAndSetIfChanged(ref _items, value);
         }
 
-        public ItemsViewModel(IScreen screen = null)
+        public ItemsViewModel(IScreen screen)
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
 
             _itemService = Locator.Current.GetService<IItemsService>();
 
-            UpdateCommand = ReactiveCommand.Create(() =>
-            {
-                try
-                {
-                    var items = _itemService.Get();
-                    items.Wait();
-
-                    Items = items.Result;
-                }
-                catch (Exception ex)
-                {
-                    //todo handle exception and display message
-                }
-            });
-
-            UpdateCommand.Execute();
         }
     }
 }

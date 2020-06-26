@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Disposables;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,18 +18,17 @@ using ReactiveUI;
 namespace AppClient
 {
     /// <summary>
-    /// Interaction logic for ProductItemView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ProductItemView : ReactiveUserControl<ProductItemViewModel>
+    public partial class WelcomeView : ReactiveUserControl<WelcomeViewModel>
     {
-        public ProductItemView()
+        public WelcomeView()
         {
             InitializeComponent();
 
             this.WhenActivated(disps =>
             {
-                this.BindCommand(ViewModel, x => x.AddToCartCommand, x => x.AddToCartButton).DisposeWith(disps);
-                this.BindCommand(ViewModel, x => x.RemoveFromCartCommand, x => x.RemoveFromCartButton).DisposeWith(disps);
+                this.BindCommand(ViewModel, x => x.StartCommand, x => x.StartButton).DisposeWith(disps);
             });
         }
     }

@@ -7,11 +7,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppApi.Data.Entities
 {
+    public enum UserRole
+    {
+        None,
+        Customer,
+        Assistance,
+        HeadCashier
+    }
+
     [Table("Users")]
     public class User
     {
         [Key]
         public int Id { get; set; }
+
+        public UserRole Role { get; set; }
         
         public string Name { get; set; }
 

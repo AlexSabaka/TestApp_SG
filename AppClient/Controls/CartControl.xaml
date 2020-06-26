@@ -1,0 +1,70 @@
+﻿<rxui:ReactiveUserControl
+    x:Class="AppClient.Controls.CartControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ac="clr-namespace:AppClient"
+    xmlns:rxui="http://reactiveui.net"
+    Width="510"
+    x:TypeArguments="ac:ShoppingCartViewModel"
+    Background="Transparent">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Shooping Cart" />
+
+        <ListView x:Name="CartItems" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type ac:ProductItemViewModel}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Description}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Price:" />
+                                <TextBlock Text="{Binding Price, Converter={StaticResource PriceConverter}}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <Button
+                                Width="20"
+                                Command="{Binding RemoveCommand}"
+                                Content="-" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Separator Grid.Row="2" />
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Total" />
+            <TextBlock
+                x:Name="Total"
+                Grid.Column="1"
+                Text="{Binding Converter={StaticResource PriceConverter}}" />
+        </Grid>
+
+        <Button
+            x:Name="PayButton"
+            Grid.Row="4"
+            Content="Pay" />
+
+    </Grid>
+</rxui:ReactiveUserControl>

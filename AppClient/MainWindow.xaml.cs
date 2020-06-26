@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ReactiveUI;
 
+using Splat;
+
 namespace AppClient
 {
     /// <summary>
@@ -32,6 +34,30 @@ namespace AppClient
             {
                 this.OneWayBind(ViewModel, x => x.Router, x => x.RoutedViewHost.Router)
                     .DisposeWith(disps);
+
+                this.OneWayBind(ViewModel, x => x.TransactionEmpty, x => x.ShoppingCart.Visibility)
+                    .DisposeWith(disps);
+
+                //this.OneWayBind(ViewModel, x => x.ShoppingCartVisibility, x => x.ShoppingCart.Visibility)
+                //    .DisposeWith(disps);
+
+                this.OneWayBind(ViewModel, x => x.Transaction.ShoppingCart, x => x.ShoppingCart.ViewModel)
+                    .DisposeWith(disps);
+
+                //this.OneWayBind(ViewModel, x => x.Language, x => x.CurrentLanguage.Text)
+                //    .DisposeWith(disps);
+
+                this.OneWayBind(ViewModel, x => x.SystemFunctions, x => x.SystemFunctions.ItemsSource)
+                    .DisposeWith(disps);
+
+                //this.BindCommand(ViewModel, x => x.ChangeLanguageCommand, x => x.ChangeLanguageButton)
+                //    .DisposeWith(disps);
+
+                //this.BindCommand(ViewModel, x => x.AssistanceCommand, x => x.AssistanceButton)
+                //    .DisposeWith(disps);
+
+                //this.BindCommand(ViewModel, x => x.GoBackCommand, x => x.GoBackButton)
+                //    .DisposeWith(disps);
             });
         }
     }

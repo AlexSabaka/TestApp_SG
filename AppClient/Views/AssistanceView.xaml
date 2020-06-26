@@ -1,0 +1,30 @@
+﻿<rxui:ReactiveUserControl
+    x:Class="AppClient.AssistanceView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ac="clr-namespace:AppClient"
+    xmlns:rxui="http://reactiveui.net"
+    x:TypeArguments="ac:AssistanceViewModel"
+    Background="Transparent">
+
+    <Grid>
+
+        <StackPanel Margin="10" VerticalAlignment="Center">
+
+            <TextBlock Margin="3" TextAlignment="Center">Assistance</TextBlock>
+
+            <ListView
+                x:Name="AssistanceFunctions"
+                Grid.Row="1"
+                Grid.Column="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type ac:ActionCommandViewModel}">
+                        <Button Command="{Binding Command}" Content="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackPanel>
+
+    </Grid>
+</rxui:ReactiveUserControl>

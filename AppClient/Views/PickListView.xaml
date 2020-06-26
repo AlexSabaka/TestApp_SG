@@ -1,0 +1,26 @@
+﻿<rxui:ReactiveUserControl
+    x:Class="AppClient.PickListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ac="clr-namespace:AppClient"
+    xmlns:rxui="http://reactiveui.net"
+    Width="800"
+    Height="600"
+    x:TypeArguments="ac:PickListViewModel"
+    Background="Transparent">
+
+    <Grid>
+        <StackPanel>
+            <TextBox x:Name="SearchBox" />
+            <ListBox x:Name="QuickPickList" Height="575">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type ac:ProductItemViewModel}">
+                        <Button Command="{Binding BuyCommand}">
+                            <TextBlock FontSize="24" Text="{Binding Name}" />
+                        </Button>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </Grid>
+</rxui:ReactiveUserControl>

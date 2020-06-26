@@ -1,16 +1,67 @@
 ﻿<rxui:ReactiveWindow
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:rxui="http://reactiveui.net" 
     x:Class="AppClient.MainWindow"
-    x:TypeArguments="ac:MainViewModel"
-    xmlns:ac="clr-namespace:AppClient"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    Title="AppClient" Height="400" Width="320">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ac="clr-namespace:AppClient"
+    xmlns:controls="clr-namespace:AppClient.Controls"
+    xmlns:rxui="http://reactiveui.net"
+    Title="AppClient"
+    Width="1024"
+    Height="768"
+    x:TypeArguments="ac:MainViewModel">
 
     <Grid>
-        <rxui:RoutedViewHost 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <rxui:RoutedViewHost
             x:Name="RoutedViewHost"
+            Grid.Row="0"
+            Grid.Column="0"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch" />
+
+        <ListView
+            x:Name="SystemFunctions"
+            Grid.Row="1"
+            Grid.Column="0">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type ac:ActionCommandViewModel}">
+                    <Button Command="{Binding Command}" Content="{Binding Name}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--<StackPanel Grid.Row="1" Grid.Column="0">
+            <Button x:Name="GoBackButton" Content="Back" />
+            <Button x:Name="ChangeLanguageButton" Content="Language" />
+            <Button x:Name="AssistanceButton" Content="Assistance" />
+            <TextBlock x:Name="CurrentLanguage" />
+        </StackPanel>-->
+
+        <controls:CartControl
+            x:Name="ShoppingCart"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Width="440"
+            Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Border
+            x:Name="OverlayBackground"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            Background="#7F19193A"
+            Visibility="Hidden">
+            <ac:DataNeededView
+                x:Name="DataNeeded"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Border>
     </Grid>
 </rxui:ReactiveWindow>

@@ -1,0 +1,25 @@
+﻿<rxui:ReactiveUserControl
+    x:Class="AppClient.WelcomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ac="clr-namespace:AppClient"
+    xmlns:rxui="http://reactiveui.net"
+    x:TypeArguments="ac:WelcomeViewModel"
+    Background="Transparent">
+
+    <Grid>
+
+        <StackPanel Margin="10" VerticalAlignment="Center">
+
+            <TextBlock Margin="3" TextAlignment="Center">Welcome</TextBlock>
+
+            <Button
+                x:Name="StartButton"
+                Margin="3"
+                Content="Start" />
+
+
+        </StackPanel>
+
+    </Grid>
+</rxui:ReactiveUserControl>

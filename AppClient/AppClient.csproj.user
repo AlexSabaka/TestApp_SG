@@ -7,21 +7,42 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ProductItemView.xaml.cs">
+    <Compile Update="Controls\CartControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ProductItemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="ItemsView.xaml">
+    <Page Update="Controls\CartControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AuthView.xaml">
+    <Page Update="Views\DataNeededView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PickListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ScanAndBagView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AssistanceView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WelcomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ItemsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AuthView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ProductItemView.xaml">
+    <Page Update="Views\ProductItemView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

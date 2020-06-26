@@ -28,13 +28,10 @@ namespace AppClient
 
             this.WhenActivated(disps =>
             {
-                this.Bind(ViewModel, x => x.ErrorDescription, x => x.ErrorTextBlock.Text).DisposeWith(disps);
-
                 this.Bind(ViewModel, x => x.UserName, x => x.UserNameBox.Text).DisposeWith(disps);
                 this.Bind(ViewModel, x => x.Password, x => x.PasswordBox.Text).DisposeWith(disps);
 
                 this.BindCommand(ViewModel, x => x.AuthCommand, x => x.LogInButton).DisposeWith(disps);
-                this.BindCommand(ViewModel, x => x.RegisterCommand, x => x.RegisterButton).DisposeWith(disps);
             });
         }
     }
